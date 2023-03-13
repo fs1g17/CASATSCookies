@@ -6,30 +6,34 @@
 {% endset %}
 
 <div style="margin: 100px; ">
-  {{ govukCookieBanner({
-  ariaLabel: "Cookies on",
-  messages: [
-    {
-      headingText: "Cookies on",
-      html: html,
-      actions: [
-        {
-          text: "Accept analytics cookies",
-          type: "button",
-          attributes: {id: 'cookie-consent-yes'}
-        },
-        {
-          text: "Reject analytics cookies",
-          type: "button",
-          name: "cookies",
-          attributes: {id: 'cookie-consent-no'}
-        },
-        {
-          text: "View cookies",
-          href: "#"
-        }
-      ]
-    }
-  ]
+  <h1>{{ cookieBackLink }}</h1>
+  <form method="post" name="cookieForm" action="/cookies">
+    <input id="response-redirect" name="redirect" type="hidden" value="{{ cookieBackLink }}" />
+    <input id="response" name="response" type="hidden" value="" />
+    {{ govukCookieBanner({
+        ariaLabel: "Cookies on",
+        messages: [
+          {
+            headingText: "Cookies on",
+            html: html,
+            actions: [
+              {
+                text: "Accept analytics cookies",
+                type: "submit",
+                attributes: {id: 'cookie-consent-yes'}
+              },
+              {
+                text: "Reject analytics cookies",
+                type: "submit",
+                attributes: {id: 'cookie-consent-no'}
+              },
+              {
+                text: "View cookies",
+                href: "#"
+              }
+            ]
+          }
+        ]
 }) }}
+  </form>
 </div>

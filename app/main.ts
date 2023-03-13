@@ -2,7 +2,11 @@ import path from 'path';
 import { configure } from "@dwp/govuk-casa";
 import express, { Request, Response, NextFunction } from 'express';
 
+import bodyParser from 'body-parser';
+
+import url from 'url';
 import crypto from 'crypto';
+import qs from 'querystring';
 
 const port = 3000;
 
@@ -30,14 +34,27 @@ const casaApp = express();
 mount(casaApp, {});
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/assets/js', express.static(path.resolve(__dirname, '../app/assets/javascript')));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.locals.gtmNonce = crypto.randomBytes(16).toString('base64');
+  res.locals.cookieBackLink = qs.escape(req.originalUrl);
   next();
 });
 
+app.post('/cookies', (req: Request, res: Response, next: NextFunction) => {
+  console.log('in cookies endpoint');
+  console.log('req.body: ', req.body);
+  //const redirectHiddenFormField = req.body && req.body.backLinkHref;
+
+  const redirect = req.body.redirect;
+
+  res.redirect(url.parse(qs.unescape(redirect)).path as string);
+});
+
 app.use('/', casaApp);
+
 
 app.listen(port, () => {
   console.log('started on port ', port);
