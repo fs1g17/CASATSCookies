@@ -1,0 +1,35 @@
+{% from "govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
+
+{% set html %}
+<p class="govuk-body">We use some essential cookies to make this service work.</p>
+<p class="govuk-body">We’d also like to use analytics cookies so we can understand how you use the service and make improvements.</p>
+{% endset %}
+
+<div style="margin: 100px; ">
+  {{ govukCookieBanner({
+  ariaLabel: "Cookies on",
+  messages: [
+    {
+      headingText: "Cookies on",
+      html: html,
+      actions: [
+        {
+          text: "Accept analytics cookies",
+          type: "button",
+          attributes: {id: 'cookie-consent-yes'}
+        },
+        {
+          text: "Reject analytics cookies",
+          type: "button",
+          name: "cookies",
+          attributes: {id: 'cookie-consent-no'}
+        },
+        {
+          text: "View cookies",
+          href: "#"
+        }
+      ]
+    }
+  ]
+}) }}
+</div>

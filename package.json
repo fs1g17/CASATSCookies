@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "build": "npx tsc",
     "clean": "rm -rf dist/",
-    "start": "npm run build && node ./dist/main.js"
+    "gulpCompile": "gulp compile",
+    "gulpBuild": "gulp build",
+    "start": "npm run gulpBuild && npm run gulpCompile && node ./dist/main.js"
   },
   "dependencies": {
     "@dwp/govuk-casa": "8.7.8",
