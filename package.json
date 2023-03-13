@@ -2,8 +2,7 @@
   "scripts": {
     "clean": "rm -rf dist/",
     "gulpCompile": "gulp compile",
-    "gulpBuild": "gulp build",
-    "start": "npm run gulpBuild && npm run gulpCompile && node ./dist/main.js"
+    "start": "npm run gulpCompile && node ./dist/main.js"
   },
   "dependencies": {
     "@dwp/govuk-casa": "8.7.8",
