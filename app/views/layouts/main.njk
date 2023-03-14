@@ -2,8 +2,16 @@
 {% block head %}
   {{ super() }}
   {% include "partials/styles.njk" %}
+
+  {% if consentCookie.ga === true %}
+    {% include "components/gtm-script.njk" %}
+  {% endif %}
 {% endblock %}
 
 {% block bodyStart %}
   {% include "components/cookie-consent-banner.njk" %}
+
+  {% if consentCookie.ga === true %}
+    {% include "components/gtm-noscript.njk" %}
+  {% endif %}
 {% endblock %}

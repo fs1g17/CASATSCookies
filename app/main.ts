@@ -9,6 +9,8 @@ import url from 'url';
 import crypto from 'crypto';
 import qs from 'querystring';
 
+import { ConsentCookie } from './typings/ConsentCookie';
+
 const port = 3000;
 
 const viewDir = path.join(__dirname, '../app/views/');
@@ -41,7 +43,17 @@ app.use('/assets/js', express.static(path.resolve(__dirname, '../app/assets/java
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.locals.googleTagManagerId = 'GTM-WP6V2WX';
-  
+
+  const { ga, preferenceSet, bannerActioned } = req.cookies['consentCookie'] || {};
+
+  const consentCookie: ConsentCookie = {
+    ga,
+    preferenceSet, 
+    bannerActioned,
+  };
+
+  res.locals.consentCookie = consentCookie;
+
   res.locals.gtmNonce = crypto.randomBytes(16).toString('base64');
   res.locals.cookieBackLink = qs.escape(req.originalUrl);
   next();
