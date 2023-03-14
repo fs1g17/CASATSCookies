@@ -1,0 +1,19 @@
+{% extends "casa/layouts/main.njk" %}
+{% block head %}
+  {{ super() }}
+  {% include "partials/styles.njk" %}
+
+  {# {% if consentCookie.ga === true %}
+    {% include "/components/gtm-script.njk" %}
+  {% endif %} #}
+{% endblock %}
+
+{# {% block bodyStart %}
+  {% if consentCookie.bannerActioned === undefined or consentCookieBanner.bannerActioned === false %}
+    {% include "/components/cookie-consent-banner.njk" %}
+  {% endif %}
+
+  {% if consentCookie.ga === true %}
+    {% include "/components/gtm-noscript.njk" %}
+  {% endif %}
+{% endblock %} #}
