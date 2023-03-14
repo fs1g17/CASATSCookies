@@ -3,6 +3,7 @@ import { configure } from "@dwp/govuk-casa";
 import express, { Request, Response, NextFunction } from 'express';
 
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 
 import url from 'url';
 import crypto from 'crypto';
@@ -34,10 +35,13 @@ const casaApp = express();
 mount(casaApp, {});
 
 const app = express();
+app.use(cookieParser('secret'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/assets/js', express.static(path.resolve(__dirname, '../app/assets/javascript')));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
+  res.locals.googleTagManagerId = 'GTM-WP6V2WX';
+  
   res.locals.gtmNonce = crypto.randomBytes(16).toString('base64');
   res.locals.cookieBackLink = qs.escape(req.originalUrl);
   next();
