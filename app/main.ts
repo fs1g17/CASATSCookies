@@ -42,19 +42,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/assets/js', express.static(path.resolve(__dirname, '../app/assets/javascript')));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
+  res.locals.gtmNonce = crypto.randomBytes(16).toString('base64');
+  next();
+});
+
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.locals.googleTagManagerId = 'GTM-WP6V2WX';
 
   const { ga, preferenceSet, bannerActioned } = req.cookies['consentCookie'] || {};
 
   const consentCookie: ConsentCookie = {
     ga,
-    preferenceSet, 
+    preferenceSet,
     bannerActioned,
   };
 
   res.locals.consentCookie = consentCookie;
-
-  res.locals.gtmNonce = crypto.randomBytes(16).toString('base64');
   res.locals.cookieBackLink = qs.escape(req.originalUrl);
   next();
 });
