@@ -23,7 +23,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.disable('x-powered-by');
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.locals.gtmNonce = crypto.randomBytes(16).toString('base64');
-  console.log('app set nonce: ', res.locals.gtmNonce)
   next();
 });
 app.set('trust proxy', 1);
