@@ -1,5 +1,4 @@
 import path from 'path';
-import helmet from 'helmet';
 import session from 'express-session';
 import express, { Request, Response, NextFunction } from 'express';
 
@@ -17,17 +16,9 @@ const port = 3000;
 
 const app = express();
 app.use((req: Request, res: Response, next: NextFunction) => {
-  res.set('X-Robots-Tag', 'noindex, nofollow');
-  next();
-});
-app.disable('x-powered-by');
-app.use((req: Request, res: Response, next: NextFunction) => {
   res.locals.gtmNonce = crypto.randomBytes(16).toString('base64');
   next();
 });
-app.set('trust proxy', 1);
-app.set('view engine', 'njk');
-app.use(helmet.noSniff());
 
 app.use(session({
   secret: 'secret',
