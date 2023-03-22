@@ -1,4 +1,5 @@
 import path from 'path';
+import helmet from 'helmet';
 import { configure } from "@dwp/govuk-casa";
 import express, { Request, Response, NextFunction } from 'express';
 
@@ -30,7 +31,17 @@ const casaApp = express();
 mount(casaApp, {});
 
 const app = express();
-app.use('/assets/js', express.static(path.resolve(__dirname, '../app/assets/javascript')));
+app.use(helmet.noSniff());
+// app.use('/assets/js', express.static(path.resolve(__dirname, './static-assets/javascript')));
+// app.use('/assets/css', express.static(path.resolve(__dirname, './static-assets/css')));
+
+//app.use(express.static(path.join(__dirname, 'public')));
+
+// app.use('/assets/css', express.static(path.join(__dirname, 'public/css')));
+// app.use('/assets/js', express.static(path.join(__dirname, 'public/javascript')));
+
+console.log('resolved path: ', path.resolve(__dirname, './public'));
+app.use(express.static(path.resolve(__dirname, './public')));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.locals.gtmNonce = crypto.randomBytes(16).toString('base64');

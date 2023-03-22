@@ -9,9 +9,17 @@ task('compile-typescript', () => tsProject.src().pipe(tsProject()).js.pipe(dest(
 
 const assetsPath = 'dist/static-assets';
 
+// task('build-project-js', () => src(['./app/assets/javascript/*.js'])
+//   .pipe(dest(`${assetsPath}/javascript`))
+// );
+
 task('build-project-js', () => src(['./app/assets/javascript/*.js'])
-  .pipe(dest(`${assetsPath}/javascript`))
+  .pipe(dest(`dist/public/javascript`))
 );
 
-task('build', series(['build-project-js']));
+task('build-project-css', () => src(['./app/assets/css/*.css'])
+  .pipe(dest(`dist/public/css`))
+);
+
+task('build', series(['build-project-js','build-project-css']));
 task('compile', series(['compile-typescript']));

@@ -9,6 +9,9 @@
     "@dwp/govuk-casa": "8.7.8",
     "@types/nunjucks": "^3.2.1",
     "express": "^4.18.2",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "helmet": "^6.0.1",
     "nunjucks": "^3.2.3"
   },
   "devDependencies": {
