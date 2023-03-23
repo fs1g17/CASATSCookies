@@ -32,7 +32,7 @@ mount(casaApp, {});
 
 const app = express();
 app.use(helmet.noSniff());
-// app.use('/assets/js', express.static(path.resolve(__dirname, './static-assets/javascript')));
+app.use('/assets/js', express.static(path.resolve(__dirname, './public/javascript')));
 // app.use('/assets/css', express.static(path.resolve(__dirname, './static-assets/css')));
 
 //app.use(express.static(path.join(__dirname, 'public')));
